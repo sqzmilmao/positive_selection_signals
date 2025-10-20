@@ -1,0 +1,48 @@
+
+{{ graph3|safe }}
+
+<br>
+<br>
+
+{{ graph4|safe }}
+
+<br>
+<br>
+
+{{ graph2|safe }}
+
+<br>
+<br>
+
+
+{% if only_metrics %}
+<form action="/species/details/?species_name={{species_name}}" method="get">
+    <input id="species_name" type="hidden" name="species_name" value="{{species_name}}">
+    <input type="submit" value="Показать всё">
+</form>
+{% else %}
+<form action="/species/details/?species_name={{species_name}}&only_metrics=True" method="get">
+    <input id="species_name" type="hidden" name="species_name" value="{{species_name}}">
+    <input id="only_metrics" type="hidden" name="only_metrics" value="True">
+    <input type="submit" value="Показать только метрики">
+</form>
+{% endif %}
+
+
+<br>
+<br>
+
+
+{% if table %}
+<table>
+    {% for row in table %}
+        <tr>
+        {% for col in row %}
+            <td>{{ col }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+<table>
+{% else %}
+    <p>Not found</p>
+{% endif %}

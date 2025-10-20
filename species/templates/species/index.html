@@ -1,0 +1,123 @@
+<h1>Positive Selection Signals Database (PSSDB)</h1>
+Harmonized signals of recent positive selection across multiple species, aggregated from peer-reviewed studies. Browse by species, chromosome, genomic range, or gene; results include normalized coordinates, key metrics (Fst, XP-EHH, iHS, etc.), assembly context, and full provenance.
+
+<h2>How to use</h2>
+Filters are orthogonal. Use any subset of filters; anything you leave blank defaults to “all”. Selected filters are intersected.
+
+<h3>1) Explore a species</h3>
+Want the full picture for one species? Choose the species and run the search (you can leave chromosome, range, and gene empty).
+You’ll get: all curated signals for that species — genes, SNPs and window-based hits merged from multiple studies — with normalized coordinates, key metrics (Fst, XP-EHH, iHS, etc.), assembly, populations (when applicable), and provenance. Use the visual panel below to spot notable regions at a glance.
+
+<h3>2) Focus on a gene</h3>
+Interested in a particular gene’s evolutionary story? Select the gene (optionally pick a species).
+You’ll get: all selection signals overlapping that gene (and nearby SNPs/windows) in the chosen species. If you run this for different species, you can quickly see where the gene shows evidence of recent positive selection.
+
+<h3>3) Investigate a genomic region</h3>
+Curious about a specific locus? Pick a species, then set a chromosome and either a start–end range or leave the range empty to scan the whole chromosome.
+You’ll get: every signal that falls inside the region — ideal for checking whether a candidate interval carries evidence of selection.
+
+Notes
+
+Coordinates are in base pairs, 1-based inclusive.
+
+Leaving a field empty broadens scope (e.g., “species only” lists everything for that species).
+
+Results always show the source study so you can trace every record back to the paper/supplement.
+
+<br>
+<br>
+
+<form action="/species/items/" method="get">
+    <label for="start_pos">Define start position: </label>
+    <input id="start_pos" type="text" name="start_pos" value="">
+
+    <br>
+
+    <label for="end_pos">Define end position: </label>
+    <input id="end_pos" type="text" name="end_pos" value="">
+
+    <br>
+
+    <label for="species_name">Define spices: </label>
+    <select name="species_name" id="species-select">
+      <option value="">--Please choose an option--</option>
+        {% for species in species_list %}
+          <option value="{{ species }}">{{ species }}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+
+    <label for="gene_name">Select gene: </label>
+    <select name="gene_name" id="gene-select">
+      <option value="">--Please choose an option--</option>
+        {% for gene in gene_list %}
+          <option value="{{ gene }}">{{ gene}}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+
+    <label for="chrom_name">Select crhomosome: </label>
+    <select name="chrom_name" id="chrom-select">
+      <option value="">--Please choose an option--</option>
+        {% for chrom in chrom_list %}
+          <option value="{{ chrom }}">{{ chrom}}</option>
+        {% endfor %}
+    </select>
+
+    <br>
+
+    <input type="submit" value="Search">
+</form>
+
+
+<h2>Summary & visualizations (species-level only)</h2>
+Select a species and click Get summary to generate high-level views for the entire species dataset.
+Note: chromosome/range/gene filters do not apply to this section.
+
+What you’ll see now
+
+Chromosome view: signal density and top windows mapped across chromosomes.
+
+Enrichment analysis: over-representation of genes/pathways (e.g., GO/KEGG) with FDR correction.
+
+Coming soon
+
+Subset-aware summaries (by region/gene) and additional distributions (by metric and comparisons).
+
+<br>
+<br>
+
+<form action="/species/details/" method="get">
+    <label for="species_name">Define spices: </label>
+    <select name="species_name" id="species-select">
+      <option value="">--Please choose an option--</option>
+        {% for species in species_list %}
+          <option value="{{ species }}">{{ species }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Search species">
+</form>
+
+
+<h2>Contribute & keep PSSDB growing</h2>
+PSSDB is community-driven and updated continuously. If you know a study that reports recent positive-selection signals, please submit it — the pipeline will handle the rest.
+
+What to upload
+
+The article PDF.
+
+All supplementary files from the paper (tables/appendices) in their original formats (XLSX/CSV/TSV/DOCX/PDF/TXT).
+
+What happens next
+
+The ingestion pipeline extracts, normalizes, annotates, validates, and adds the signals to the database.
+
+Records are linked to the paper’s DOI/PMID and include full provenance.
+
+(Optional but helpful) Include the species and genome assembly if stated in the paper.
+
+Your submissions help keep the database
+

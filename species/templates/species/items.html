@@ -1,0 +1,14 @@
+
+{% if table %}
+<table>
+    {% for row in table %}
+        <tr>
+        {% for col in row %}
+            <td>{{ col }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+<table>
+{% else %}
+    <p>Not found</p>
+{% endif %}
